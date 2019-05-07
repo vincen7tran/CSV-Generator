@@ -8,8 +8,9 @@ function CSVGenerator({data}) {
 
 function convertData(data) {
   const removeSpace = data.split(' ');
-  // Remove Semicolon
-  removeSpace[removeSpace.length - 1] = removeSpace[removeSpace.length - 1].slice(0,1);
+  let last = removeSpace[removeSpace.length - 1];
+  // Remove Semicolon If Present
+  if (last[last.length - 1] === ';') last = last.slice(0,1);
   return JSON.parse(removeSpace.join(''));
 }
 
