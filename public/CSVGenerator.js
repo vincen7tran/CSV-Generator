@@ -13,6 +13,9 @@ function convertData(data) {
   return JSON.parse(removeSpace.join(''));
 }
 
+// TODO: Optimize to not check all children?
+// Check Fields of first child and then check if any of the children have children
+// Check Fields for 1 children per "layer"
 function extractFields(obj) {
   const fields = new Set();
   (function getAllFields(current) {
