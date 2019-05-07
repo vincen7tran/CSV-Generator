@@ -1,6 +1,6 @@
 function CSVGenerator({data}) {
   const obj = convertData(data);
-  const fields = extractFields(obj);
+  const fields = [...extractFields(obj)];
   const extract = extractData(obj, fields)
   const csv = formatCSV(extract, fields);
   return csv;
@@ -14,21 +14,29 @@ function convertData(data) {
 }
 
 function extractFields(obj) {
-  const fields = [];
-  for (let keys in obj) {
-    // Do not use nested arrays or objects as headers for CSV
-    if (typeof obj[keys] !== 'object') fields.push(keys);
-  }
+  const fields = new Set();
+  (function getAllFields(current) {
+    for (let keys in current) {
+      // Do not use nested arrays or objects as headers for CSV
+      if (typeof current[keys] !== 'object') fields.add(keys);
+    }
+    for (let child of current.children) {
+      getAllFields(child)
+    }
+  })(obj);
   return fields;
 }
 
 function extractData(obj, fields) {
   let result = [];
   const row = [];
+
   for (let field of fields) {
-    row.push(obj[field]);
+    if (obj[field] === undefined) row.push('null'); // Handle fields for objects that do not have a value
+    else row.push(obj[field]);
   }
   result.push(row);
+
   for (let child of obj.children) {
     result = result.concat(extractData(child, fields));
   }
