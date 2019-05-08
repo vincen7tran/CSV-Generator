@@ -16,6 +16,8 @@
   </form>
   <br>
   <h2>Converted JSON to CSV Text</h2>
-  {{CSV}}
+  {{#each CSV}}
+    <div>{{this}}</div>
+  {{/each}}
 </body>
 </html>

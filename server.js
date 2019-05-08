@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const hbs = require('hbs');
+const hbs = require('handlebars');
 const bodyParser = require('body-parser');
 const CSVGenerator = require('./public/CSVGenerator');
 

@@ -51,8 +51,10 @@ function extractData(obj, fields) {
 
 function formatCSV(data, fields) {
   const allData = [fields, ...data];
+  console.log(allData);
   const csv = allData.join('\n');
-  return csv;
+  console.log(csv);
+  return allData;
 }
 
 module.exports = CSVGenerator;
