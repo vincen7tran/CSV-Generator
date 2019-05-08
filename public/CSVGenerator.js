@@ -8,10 +8,11 @@ function CSVGenerator({data}) {
 
 function convertData(data) {
   const removeSpace = data.split(' ');
-  let last = removeSpace[removeSpace.length - 1];
+  const removeBreaks = removeSpace.join('').split('\r\n');
+  let last = removeBreaks[removeBreaks.length - 1];
   // Remove Semicolon If Present
-  if (last[last.length - 1] === ';') last = last.slice(0,1);
-  return JSON.parse(removeSpace.join(''));
+  if (last[last.length - 1] === ';') removeBreaks[removeBreaks.length - 1] = removeBreaks[removeBreaks.length - 1].slice(0,1);
+  return JSON.parse(removeBreaks.join(''));
 }
 
 // TODO: Optimize to not check all children?
